@@ -8,6 +8,9 @@ from sklearn.ensemble import GradientBoostingClassifier
 df = pd.read_csv('training.csv')
 
 
+df.replace(-999, np.nan)
+
+
 # map y values to integers
 df['Label'] = df['Label'].map({'b':0, 's':1})
 
@@ -28,7 +31,7 @@ r = np.random.rand(data_train.shape[0])
 
 
 # call model
-gbc = GradientBoostingClassifier(n_estimators=50, max_depth=5,
+gbc = GradientBoostingClassifier(n_estimators=50, max_depth=10,
                                     min_samples_leaf=200,
                                     max_features=10, verbose=1)
 
@@ -55,7 +58,7 @@ df_result.index = range(0, len(df_result))
 
 # map top 15% to signal, rest to background
 signal_count = int(len(df_result) * 0.15)
-df_result['Class'] = np.where(df_result.index < signal_count, 's', 'f')
+df_result['Class'] = np.where(df_result.index < signal_count, 's', 'b')
 
 
 # prepare for submission
