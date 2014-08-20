@@ -8,9 +8,6 @@ from sklearn.ensemble import GradientBoostingClassifier
 df = pd.read_csv('training.csv')
 
 
-df.replace(-999, np.nan)
-
-
 # map y values to integers
 df['Label'] = df['Label'].map({'b':0, 's':1})
 
